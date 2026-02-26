@@ -19,20 +19,33 @@ export function useMoods() {
   const [myVibe, setMyVibe] = useState(null)
 
   const fetchMoods = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('moods')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(50)
+    try {
+      const { data, error } = await supabase
+        .from('moods')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(200)
 
-    if (error) {
-      console.error('Error fetching moods:', error)
+      if (error) {
+        console.error('Error fetching moods:', error)
+        setLoading(false)
+        return
+      }
+
+      // Deduplicate: keep only the latest vote per session
+      const seen = new Set()
+      const unique = (data || []).filter((m) => {
+        if (seen.has(m.session_id)) return false
+        seen.add(m.session_id)
+        return true
+      })
+
+      setMoods(unique)
       setLoading(false)
-      return
+    } catch (err) {
+      console.error('Fetch failed:', err)
+      setLoading(false)
     }
-
-    setMoods(data || [])
-    setLoading(false)
   }, [])
 
   const checkExistingVote = useCallback(async () => {
