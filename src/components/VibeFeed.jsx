@@ -1,4 +1,4 @@
-import { VIBE_LABELS } from '../constants/moods.js'
+import { VIBE_LABELS, DISPLAY_EMOJI } from '../constants/moods.js'
 
 function getRelativeTime(timestamp) {
   if (!timestamp) return 'just now'
@@ -50,19 +50,20 @@ export function VibeFeed({ moods }) {
       ) : (
         <div className="space-y-3 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
           {recentMoods.map((mood, index) => {
-            const emoji = getEmojiFromMood(mood)
-            const label = VIBE_LABELS[emoji] || 'Unknown'
+            const rawEmoji = getEmojiFromMood(mood)
+            const displayEmoji = DISPLAY_EMOJI[rawEmoji] || rawEmoji
+            const label = VIBE_LABELS[rawEmoji] || 'Unknown'
             const time = getRelativeTime(getTimestamp(mood))
             const session = getSessionId(mood)
 
             return (
               <div
-                key={typeof mood === 'object' && mood?.id ? mood.id : `${emoji}-${index}`}
+                key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
                 className="flex items-center gap-4 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-white/10 animate-[slideDown_0.4s_ease-out]"
                 style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
               >
                 {/* Large emoji */}
-                <span className="text-3xl md:text-4xl flex-shrink-0">{emoji}</span>
+                <span className="text-3xl md:text-4xl flex-shrink-0">{displayEmoji}</span>
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
