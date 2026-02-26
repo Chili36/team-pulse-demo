@@ -27,17 +27,24 @@ export function useMoods() {
 
     if (error) {
       console.error('Error fetching moods:', error)
+      setLoading(false)
       return
     }
 
-    const rows = data || []
-    setMoods(rows)
+    setMoods(data || [])
     setLoading(false)
+  }, [])
 
-    const myVote = rows.find((m) => m.session_id === sessionId)
-    if (myVote) {
+  const checkExistingVote = useCallback(async () => {
+    const { data } = await supabase
+      .from('moods')
+      .select('vibe')
+      .eq('session_id', sessionId)
+      .limit(1)
+
+    if (data && data.length > 0) {
       setHasVoted(true)
-      setMyVibe(myVote.vibe)
+      setMyVibe(data[0].vibe)
     }
   }, [])
 
@@ -62,10 +69,11 @@ export function useMoods() {
 
   useEffect(() => {
     fetchMoods()
+    checkExistingVote()
 
     const interval = setInterval(fetchMoods, 5000)
     return () => clearInterval(interval)
-  }, [fetchMoods])
+  }, [fetchMoods, checkExistingVote])
 
   return { moods, submitMood, loading, hasVoted, myVibe }
 }
