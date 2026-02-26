@@ -5,7 +5,7 @@ import { MoodChart } from './components/MoodChart'
 import { VibeFeed } from './components/VibeFeed'
 
 export default function App() {
-  const { moods, submitMood, loading } = useMoods()
+  const { moods, submitMood, loading, hasVoted, myVibe } = useMoods()
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white">
@@ -20,7 +20,7 @@ export default function App() {
         <Header />
 
         {/* Hero: Mood Selector */}
-        <MoodSelector onSelect={submitMood} disabled={loading} />
+        <MoodSelector onSelect={submitMood} disabled={loading} hasVoted={hasVoted} myVibe={myVibe} />
 
         {/* Dashboard: Chart + Feed */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">

@@ -15,6 +15,8 @@ const sessionId = getSessionId()
 export function useMoods() {
   const [moods, setMoods] = useState([])
   const [loading, setLoading] = useState(true)
+  const [hasVoted, setHasVoted] = useState(false)
+  const [myVibe, setMyVibe] = useState(null)
 
   const fetchMoods = useCallback(async () => {
     const { data, error } = await supabase
@@ -25,6 +27,7 @@ export function useMoods() {
 
     if (error) {
       console.error('Error fetching moods:', error)
+      setLoading(false)
       return
     }
 
@@ -32,25 +35,45 @@ export function useMoods() {
     setLoading(false)
   }, [])
 
+  const checkExistingVote = useCallback(async () => {
+    const { data } = await supabase
+      .from('moods')
+      .select('vibe')
+      .eq('session_id', sessionId)
+      .limit(1)
+
+    if (data && data.length > 0) {
+      setHasVoted(true)
+      setMyVibe(data[0].vibe)
+    }
+  }, [])
+
   const submitMood = useCallback(async (vibe) => {
+    if (hasVoted) return
+
+    setLoading(true)
     const { error } = await supabase
       .from('moods')
       .insert({ vibe, session_id: sessionId })
 
     if (error) {
       console.error('Error submitting mood:', error)
+      setLoading(false)
       return
     }
 
+    setHasVoted(true)
+    setMyVibe(vibe)
     await fetchMoods()
-  }, [fetchMoods])
+  }, [fetchMoods, hasVoted])
 
   useEffect(() => {
     fetchMoods()
+    checkExistingVote()
 
     const interval = setInterval(fetchMoods, 5000)
     return () => clearInterval(interval)
-  }, [fetchMoods])
+  }, [fetchMoods, checkExistingVote])
 
-  return { moods, submitMood, loading }
+  return { moods, submitMood, loading, hasVoted, myVibe }
 }
