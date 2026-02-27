@@ -1,4 +1,5 @@
 import { VIBE_LABELS, DISPLAY_EMOJI } from '../constants/moods.js'
+import { getAgentInfo, isAIAgent } from '../constants/agents.js'
 
 function getRelativeTime(timestamp) {
   if (!timestamp) return 'just now'
@@ -32,6 +33,16 @@ function getSessionId(mood) {
   return id ? id.slice(0, 6) : null
 }
 
+function getRawSessionId(mood) {
+  if (typeof mood === 'string') return null
+  return mood?.session_id || mood?.sessionId || null
+}
+
+function getComment(mood) {
+  if (typeof mood === 'string') return null
+  return mood?.comment || null
+}
+
 export function VibeFeed({ moods }) {
   const recentMoods = (moods || []).slice(0, 10)
 
@@ -55,7 +66,56 @@ export function VibeFeed({ moods }) {
             const label = VIBE_LABELS[rawEmoji] || 'Unknown'
             const time = getRelativeTime(getTimestamp(mood))
             const session = getSessionId(mood)
+            const fullSessionId = getRawSessionId(mood)
+            const agentInfo = fullSessionId ? getAgentInfo(fullSessionId) : null
+            const comment = getComment(mood)
 
+            if (agentInfo) {
+              // AI Agent entry
+              return (
+                <div
+                  key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
+                  className="flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-white/10 animate-[slideDown_0.4s_ease-out]"
+                  style={{
+                    animationDelay: `${index * 50}ms`,
+                    animationFillMode: 'both',
+                    borderLeft: `4px solid ${agentInfo.color}`,
+                  }}
+                >
+                  {/* Agent avatar */}
+                  <span className="text-3xl md:text-4xl flex-shrink-0">{agentInfo.avatar}</span>
+
+                  {/* Agent info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="text-xs font-semibold rounded-full px-2 py-0.5"
+                        style={{
+                          backgroundColor: `${agentInfo.color}20`,
+                          color: agentInfo.color,
+                        }}
+                      >
+                        {agentInfo.name}
+                      </span>
+                      <span className="text-[10px] text-gray-600 opacity-60">🤖</span>
+                    </div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-lg">{displayEmoji}</span>
+                      {comment && (
+                        <p className="text-xs italic text-gray-400 truncate">
+                          &ldquo;{comment}&rdquo;
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Time */}
+                  <span className="flex-shrink-0 text-xs text-gray-500 mt-0.5">{time}</span>
+                </div>
+              )
+            }
+
+            // Human entry
             return (
               <div
                 key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
