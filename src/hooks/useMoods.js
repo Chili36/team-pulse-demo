@@ -61,13 +61,16 @@ export function useMoods() {
     }
   }, [])
 
-  const submitMood = useCallback(async (vibe) => {
+  const submitMood = useCallback(async (vibe, comment) => {
     if (hasVoted) return
 
     setLoading(true)
+    const row = { vibe, session_id: sessionId }
+    if (comment) row.comment = comment
+
     const { error } = await supabase
       .from('moods')
-      .insert({ vibe, session_id: sessionId })
+      .insert(row)
 
     if (error) {
       console.error('Error submitting mood:', error)
