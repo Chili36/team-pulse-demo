@@ -99,10 +99,10 @@ export function VibeFeed({ moods }) {
                       </span>
                       <span className="text-[10px] text-gray-600 opacity-60">🤖</span>
                     </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-lg">{displayEmoji}</span>
+                    <div className="flex items-start gap-2 mt-1">
+                      <span className="text-lg flex-shrink-0">{displayEmoji}</span>
                       {comment && (
-                        <p className="text-xs italic text-gray-400 truncate">
+                        <p className="text-xs italic text-gray-400 leading-relaxed">
                           &ldquo;{comment}&rdquo;
                         </p>
                       )}
