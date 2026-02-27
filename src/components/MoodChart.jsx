@@ -1,4 +1,5 @@
 import { MOOD_OPTIONS, VIBE_COLORS } from '../constants/moods.js'
+import { isAIAgent } from '../constants/agents.js'
 import {
   BarChart,
   Bar,
@@ -38,9 +39,12 @@ export function MoodChart({ moods }) {
 
   return (
     <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 h-full">
-      <h3 className="text-lg font-semibold text-gray-200 mb-6 flex items-center gap-2">
-        <span className="text-xl">📊</span> Vibe Distribution
-      </h3>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-200 flex items-center gap-2">
+          <span className="text-xl">📊</span> Vibe Distribution
+        </h3>
+        <p className="text-xs text-gray-500 mt-1 ml-8">Humans + AI agents combined</p>
+      </div>
 
       {!hasData ? (
         <div className="flex flex-col items-center justify-center h-64 text-gray-500">

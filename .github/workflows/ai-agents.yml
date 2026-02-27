@@ -1,0 +1,23 @@
+name: AI Vibe Check
+
+on:
+  schedule:
+    - cron: '0 8 * * 1-5'  # Weekdays at 8am UTC
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  vibe-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - name: Run AI Agents
+        run: node scripts/ai-agents.mjs
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
