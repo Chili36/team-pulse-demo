@@ -120,6 +120,8 @@ async function main() {
 
   const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
 
+  let failures = 0;
+
   for (const agent of AGENTS) {
     try {
       console.log(`🤖 ${agent.name} is reading the news...`);
@@ -129,11 +131,17 @@ async function main() {
       await insertVibe(agent, vibeData);
       console.log(`   ✓ Vibe posted to Supabase\n`);
     } catch (err) {
+      failures++;
       console.error(`   ✗ Error for ${agent.name}:`, err.message, '\n');
     }
   }
 
-  console.log('Done! 🎉');
+  if (failures === AGENTS.length) {
+    console.error('All agents failed — exiting with error');
+    process.exit(1);
+  }
+
+  console.log(`Done! ${AGENTS.length - failures}/${AGENTS.length} agents posted. 🎉`);
 }
 
 main();
