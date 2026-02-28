@@ -74,9 +74,10 @@ export function useMoods() {
       .from('moods')
       .insert(row)
 
-    // If the insert failed due to a missing 'comment' column (older schema),
-    // retry without the comment field so the vote is still recorded.
-    if (error && comment) {
+    // If the insert failed specifically because the 'comment' column doesn't
+    // exist (older schema), retry without it. Don't swallow unrelated errors.
+    const isColumnError = error && comment && /column|undefined|unknown/.test(error.message || '')
+    if (isColumnError) {
       const fallbackRow = { vibe, session_id: sessionId }
       const result = await supabase.from('moods').insert(fallbackRow)
       error = result.error
