@@ -61,13 +61,24 @@ export function useMoods() {
     }
   }, [])
 
-  const submitMood = useCallback(async (vibe) => {
+  const submitMood = useCallback(async (vibe, comment) => {
     if (hasVoted) return
 
     setLoading(true)
-    const { error } = await supabase
+    const row = { vibe, session_id: sessionId }
+    if (comment) row.comment = comment
+
+    let { error } = await supabase
       .from('moods')
-      .insert({ vibe, session_id: sessionId })
+      .insert(row)
+
+    // If the insert failed due to a missing 'comment' column (older schema),
+    // retry without the comment field so the vote is still recorded.
+    if (error && comment) {
+      const fallbackRow = { vibe, session_id: sessionId }
+      const result = await supabase.from('moods').insert(fallbackRow)
+      error = result.error
+    }
 
     if (error) {
       console.error('Error submitting mood:', error)

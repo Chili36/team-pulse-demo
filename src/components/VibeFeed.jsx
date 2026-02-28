@@ -119,7 +119,7 @@ export function VibeFeed({ moods }) {
             return (
               <div
                 key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
-                className="flex items-center gap-4 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-white/10 animate-[slideDown_0.4s_ease-out]"
+                className="flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-white/10 animate-[slideDown_0.4s_ease-out]"
                 style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
               >
                 {/* Large emoji */}
@@ -127,7 +127,12 @@ export function VibeFeed({ moods }) {
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-200 truncate">{label}</p>
+                  <p className="text-sm font-medium text-gray-200">{label}</p>
+                  {comment && (
+                    <p className="text-xs italic text-gray-400 leading-relaxed mt-0.5">
+                      &ldquo;{comment}&rdquo;
+                    </p>
+                  )}
                   <p className="text-xs text-gray-500 mt-0.5">{time}</p>
                 </div>
 
