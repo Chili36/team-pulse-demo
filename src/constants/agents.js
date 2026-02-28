@@ -14,6 +14,41 @@ export const AI_AGENTS = {
     avatar: '🧐',
     color: '#60a5fa',
   },
+  'a0000000-0000-0000-0000-000000000004': {
+    name: 'Startup Steve',
+    avatar: '🚀',
+    color: '#f59e0b',
+  },
+  'a0000000-0000-0000-0000-000000000005': {
+    name: 'Doomer Donna',
+    avatar: '💀',
+    color: '#991b1b',
+  },
+  'a0000000-0000-0000-0000-000000000006': {
+    name: 'Chill Charlie',
+    avatar: '😎',
+    color: '#06b6d4',
+  },
+  'a0000000-0000-0000-0000-000000000007': {
+    name: 'Hacker Holly',
+    avatar: '💻',
+    color: '#8b5cf6',
+  },
+  'a0000000-0000-0000-0000-000000000008': {
+    name: 'Manager Mike',
+    avatar: '📊',
+    color: '#ea580c',
+  },
+  'a0000000-0000-0000-0000-000000000009': {
+    name: 'Ethics Elena',
+    avatar: '⚖️',
+    color: '#0d9488',
+  },
+  'a0000000-0000-0000-0000-00000000000a': {
+    name: 'Junior Jess',
+    avatar: '🌱',
+    color: '#65a30d',
+  },
 }
 
 export function isAIAgent(sessionId) {
