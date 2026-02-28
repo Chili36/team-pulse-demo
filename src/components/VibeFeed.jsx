@@ -47,16 +47,16 @@ export function VibeFeed({ moods }) {
   const recentMoods = (moods || []).slice(0, 10)
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 h-full">
-      <h3 className="text-lg font-semibold text-gray-200 mb-6 flex items-center gap-2">
-        <span className="text-xl">⚡</span> Live Vibes
+    <div className="bg-card border border-beige shadow-[0_2px_12px_rgba(120,80,40,0.08)] rounded-2xl p-6 md:p-8 h-full">
+      <h3 className="text-lg font-semibold text-brown mb-6 flex items-center gap-2">
+        <span className="text-xl">📌</span> Live Vibes
       </h3>
 
       {recentMoods.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-          <span className="text-5xl mb-4 opacity-50 animate-pulse">👀</span>
+        <div className="flex flex-col items-center justify-center h-64 text-brown-muted">
+          <span className="text-5xl mb-4 opacity-50">👀</span>
           <p className="text-lg font-medium">Waiting for vibes...</p>
-          <p className="text-sm text-gray-600 mt-1">Submissions will appear here live</p>
+          <p className="text-sm text-brown-muted/70 mt-1">Submissions will appear here live</p>
         </div>
       ) : (
         <div className="space-y-3 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
@@ -75,7 +75,7 @@ export function VibeFeed({ moods }) {
               return (
                 <div
                   key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
-                  className="flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-white/10 animate-[slideDown_0.4s_ease-out]"
+                  className="flex items-start gap-4 bg-cream/50 border border-beige/60 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-beige-light animate-[slideDown_0.4s_ease-out]"
                   style={{
                     animationDelay: `${index * 50}ms`,
                     animationFillMode: 'both',
@@ -97,12 +97,12 @@ export function VibeFeed({ moods }) {
                       >
                         {agentInfo.name}
                       </span>
-                      <span className="text-[10px] text-gray-600 opacity-60">🤖</span>
+                      <span className="text-[10px] text-brown-muted opacity-60">🤖</span>
                     </div>
                     <div className="flex items-start gap-2 mt-1">
                       <span className="text-lg flex-shrink-0">{displayEmoji}</span>
                       {comment && (
-                        <p className="text-xs italic text-gray-400 leading-relaxed">
+                        <p className="text-xs italic text-brown-muted leading-relaxed">
                           &ldquo;{comment}&rdquo;
                         </p>
                       )}
@@ -110,7 +110,7 @@ export function VibeFeed({ moods }) {
                   </div>
 
                   {/* Time */}
-                  <span className="flex-shrink-0 text-xs text-gray-500 mt-0.5">{time}</span>
+                  <span className="flex-shrink-0 text-xs text-brown-muted/70 mt-0.5">{time}</span>
                 </div>
               )
             }
@@ -119,7 +119,7 @@ export function VibeFeed({ moods }) {
             return (
               <div
                 key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
-                className="flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/5 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-white/10 animate-[slideDown_0.4s_ease-out]"
+                className="flex items-start gap-4 bg-cream/50 border border-beige/60 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-beige-light animate-[slideDown_0.4s_ease-out]"
                 style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
               >
                 {/* Large emoji */}
@@ -127,18 +127,18 @@ export function VibeFeed({ moods }) {
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-200">{label}</p>
+                  <p className="text-sm font-medium text-brown">{label}</p>
                   {comment && (
-                    <p className="text-xs italic text-gray-400 leading-relaxed mt-0.5">
+                    <p className="text-xs italic text-brown-muted leading-relaxed mt-0.5">
                       &ldquo;{comment}&rdquo;
                     </p>
                   )}
-                  <p className="text-xs text-gray-500 mt-0.5">{time}</p>
+                  <p className="text-xs text-brown-muted/70 mt-0.5">{time}</p>
                 </div>
 
                 {/* Session indicator */}
                 {session && (
-                  <span className="flex-shrink-0 text-[10px] font-mono text-gray-600 bg-white/5 rounded-md px-2 py-0.5">
+                  <span className="flex-shrink-0 text-[10px] font-mono text-brown-muted bg-beige-light rounded-md px-2 py-0.5">
                     #{session}
                   </span>
                 )}
