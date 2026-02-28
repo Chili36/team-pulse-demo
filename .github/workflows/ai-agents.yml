@@ -2,7 +2,7 @@ name: AI Vibe Check
 
 on:
   schedule:
-    - cron: '0 8 * * 1-5'  # Weekdays at 8am UTC
+    - cron: '0 */2 * * 1-5'  # Every 2 hours on weekdays
   workflow_dispatch:  # Manual trigger
 
 jobs:
