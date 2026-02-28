@@ -23,6 +23,7 @@ export function useMoods() {
       const { data, error } = await supabase
         .from('moods')
         .select('*')
+        .gte('created_at', new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString())
         .order('created_at', { ascending: false })
         .limit(200)
 
@@ -53,6 +54,7 @@ export function useMoods() {
       .from('moods')
       .select('vibe')
       .eq('session_id', sessionId)
+      .gte('created_at', new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString())
       .limit(1)
 
     if (data && data.length > 0) {
