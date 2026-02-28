@@ -14,15 +14,21 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
   const handleSubmit = async () => {
     if (!selectedVibe || submitting) return
     setSubmitting(true)
-    await onSelect(selectedVibe, comment.trim() || undefined)
-    setSubmitting(false)
+    try {
+      await onSelect(selectedVibe, comment.trim() || undefined)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleSkip = async () => {
     if (!selectedVibe || submitting) return
     setSubmitting(true)
-    await onSelect(selectedVibe)
-    setSubmitting(false)
+    try {
+      await onSelect(selectedVibe)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const selectedOption = MOOD_OPTIONS.find((m) => m.value === selectedVibe)
