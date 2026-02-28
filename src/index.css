@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  --color-cream: #faf7f2;
+  --color-card: #ffffff;
+  --color-coral: #e06050;
+  --color-coral-hover: #c9503f;
+  --color-sage: #6b9e7a;
+  --color-brown: #3d2e1f;
+  --color-brown-muted: #8b7355;
+  --color-beige: #e8ddd0;
+  --color-beige-light: #f3ede4;
+}
+
+body {
+  font-family: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, sans-serif;
+  background-color: #faf7f2;
+  color: #3d2e1f;
+}
