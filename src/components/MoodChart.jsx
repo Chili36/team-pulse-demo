@@ -14,7 +14,7 @@ function CustomTooltip({ active, payload }) {
   if (!active || !payload || !payload.length) return null
   const { emoji, label, count } = payload[0].payload
   return (
-    <div className="bg-cream border border-beige shadow-lg rounded-xl px-4 py-3">
+    <div className="border border-[#e0d4b8] shadow-lg rounded-xl px-4 py-3" style={{ background: '#f5edd6' }}>
       <p className="text-2xl text-center">{emoji}</p>
       <p className="text-sm text-brown-muted font-medium text-center">{label}</p>
       <p className="text-lg font-bold text-brown text-center mt-1">
@@ -38,7 +38,10 @@ export function MoodChart({ moods }) {
   const hasData = chartData.some((d) => d.count > 0)
 
   return (
-    <div className="bg-card border border-beige shadow-[0_2px_12px_rgba(120,80,40,0.08)] rounded-2xl p-6 md:p-8 h-full">
+    <div className="relative border-none shadow-[2px_4px_16px_rgba(80,50,20,0.25)] rounded-lg p-6 md:p-8 h-full rotate-[0.6deg]"
+      style={{ background: 'linear-gradient(155deg, #f5edd6, #f0e6c8)' }}>
+      {/* Pushpin */}
+      <div className="absolute -top-2 left-6 w-5 h-5 rounded-full bg-red-400 shadow-[0_2px_4px_rgba(0,0,0,0.3)] z-10 border-2 border-red-300" />
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-brown flex items-center gap-2">
           <span className="text-xl">📋</span> Vibe Distribution

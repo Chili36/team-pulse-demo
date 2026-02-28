@@ -35,7 +35,20 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
 
   return (
     <section className="w-full max-w-3xl mx-auto px-4">
-      <div className="bg-card border border-beige shadow-[0_2px_12px_rgba(120,80,40,0.08)] rounded-3xl p-6 md:p-10 rotate-[-0.5deg]">
+      <div className="relative border-none shadow-[2px_4px_16px_rgba(80,50,20,0.25)] rounded-lg p-6 md:p-10 rotate-[-0.8deg]"
+        style={{ background: 'linear-gradient(145deg, #f5edd6, #f0e6c8)' }}>
+        {/* Washi tape decoration */}
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-24 h-8 rounded-sm rotate-[1.5deg] overflow-hidden"
+          style={{
+            background: `repeating-linear-gradient(
+              -45deg,
+              rgba(224,96,80,0.35),
+              rgba(224,96,80,0.35) 4px,
+              rgba(255,224,102,0.4) 4px,
+              rgba(255,224,102,0.4) 8px
+            )`,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
+          }} />
         <h2 className="text-center text-lg md:text-xl font-semibold text-brown-muted mb-6 md:mb-8">
           {hasVoted
             ? 'Your vibe has been recorded!'

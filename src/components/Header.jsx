@@ -1,22 +1,17 @@
 export function Header() {
   return (
-    <header className="text-center py-8 md:py-12">
-      <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-brown">
-        Cats & Agents
-        <span className="inline-block ml-3" aria-hidden="true">
-          🐾
-        </span>
+    <header className="flex items-center justify-center gap-3 pt-4 pb-2">
+      <span className="text-2xl">🐾</span>
+      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-brown">
+        Cats <span className="text-coral">&</span> Agents
       </h1>
-
-      <p className="mt-4 text-lg md:text-xl text-brown-muted font-medium max-w-xl mx-auto leading-relaxed">
-        How does your team feel about{' '}
-        <span className="text-coral font-semibold">
+      <span className="text-lg" style={{ color: '#5a3e28' }}>
+        — how does your team feel about{' '}
+        <span className="font-bold px-1.5 py-0.5 rounded text-sm"
+          style={{ backgroundColor: '#ffe066', color: '#3d2e1f' }}>
           agentic coding
-        </span>
-        ?
-      </p>
-
-      <div className="mt-6 mx-auto w-24 border-t-2 border-dashed border-beige" />
+        </span>?
+      </span>
     </header>
   )
 }

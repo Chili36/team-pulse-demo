@@ -47,7 +47,10 @@ export function VibeFeed({ moods }) {
   const recentMoods = (moods || []).slice(0, 10)
 
   return (
-    <div className="bg-card border border-beige shadow-[0_2px_12px_rgba(120,80,40,0.08)] rounded-2xl p-6 md:p-8 h-full">
+    <div className="relative border-none shadow-[2px_4px_16px_rgba(80,50,20,0.25)] rounded-lg p-6 md:p-8 h-full rotate-[-0.4deg]"
+      style={{ background: 'linear-gradient(140deg, #f5edd6, #f0e6c8)' }}>
+      {/* Pushpin */}
+      <div className="absolute -top-2 right-8 w-5 h-5 rounded-full bg-blue-400 shadow-[0_2px_4px_rgba(0,0,0,0.3)] z-10 border-2 border-blue-300" />
       <h3 className="text-lg font-semibold text-brown mb-6 flex items-center gap-2">
         <span className="text-xl">📌</span> Live Vibes
       </h3>
@@ -75,7 +78,7 @@ export function VibeFeed({ moods }) {
               return (
                 <div
                   key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
-                  className="flex items-start gap-4 bg-cream/50 border border-beige/60 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-beige-light animate-[slideDown_0.4s_ease-out]"
+                  className="flex items-start gap-4 bg-[#f9f0d8]/60 border border-[#e0d4b8]/50 rounded-lg px-4 py-3 transition-all duration-500 hover:bg-beige-light animate-[slideDown_0.4s_ease-out] shadow-[1px_2px_6px_rgba(80,50,20,0.08)]"
                   style={{
                     animationDelay: `${index * 50}ms`,
                     animationFillMode: 'both',
@@ -119,8 +122,8 @@ export function VibeFeed({ moods }) {
             return (
               <div
                 key={typeof mood === 'object' && mood?.id ? mood.id : `${rawEmoji}-${index}`}
-                className="flex items-start gap-4 bg-cream/50 border border-beige/60 rounded-xl px-4 py-3 transition-all duration-500 hover:bg-beige-light animate-[slideDown_0.4s_ease-out]"
-                style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
+                className="flex items-start gap-4 bg-[#f9f0d8]/60 border border-[#e0d4b8]/50 rounded-lg px-4 py-3 transition-all duration-500 hover:bg-beige-light animate-[slideDown_0.4s_ease-out] shadow-[1px_2px_6px_rgba(80,50,20,0.08)]"
+                style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both', borderLeft: '3px solid #d4a574' }}
               >
                 {/* Large emoji */}
                 <span className="text-3xl md:text-4xl flex-shrink-0">{displayEmoji}</span>
