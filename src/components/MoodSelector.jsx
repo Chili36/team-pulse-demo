@@ -35,8 +35,21 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
 
   return (
     <section className="w-full max-w-3xl mx-auto px-4">
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-10">
-        <h2 className="text-center text-lg md:text-xl font-semibold text-gray-300 mb-6 md:mb-8">
+      <div className="relative border-none shadow-[2px_4px_16px_rgba(80,50,20,0.25)] rounded-lg p-6 md:p-10 rotate-[-0.8deg]"
+        style={{ background: 'linear-gradient(145deg, #f5edd6, #f0e6c8)' }}>
+        {/* Washi tape decoration */}
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-24 h-8 rounded-sm rotate-[1.5deg] overflow-hidden"
+          style={{
+            background: `repeating-linear-gradient(
+              -45deg,
+              rgba(224,96,80,0.35),
+              rgba(224,96,80,0.35) 4px,
+              rgba(255,224,102,0.4) 4px,
+              rgba(255,224,102,0.4) 8px
+            )`,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
+          }} />
+        <h2 className="text-center text-lg md:text-xl font-semibold text-brown-muted mb-6 md:mb-8">
           {hasVoted
             ? 'Your vibe has been recorded!'
             : selectedVibe
@@ -65,10 +78,10 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
                 className={`
                   group flex flex-col items-center gap-2 p-3 md:p-4 rounded-2xl
                   transition-all duration-300 ease-out
-                  focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 focus:ring-offset-gray-900
-                  ${isMyVote ? 'scale-110 bg-white/15 ring-2 ring-purple-500/60' : ''}
+                  focus:outline-none focus:ring-2 focus:ring-coral/50 focus:ring-offset-2 focus:ring-offset-cream
+                  ${isMyVote ? 'scale-110 bg-beige-light ring-2 ring-coral/60' : ''}
                   ${isFaded ? 'opacity-25' : ''}
-                  ${!hasVoted ? 'hover:bg-white/10 hover:scale-110 active:scale-95' : ''}
+                  ${!hasVoted ? 'hover:bg-beige-light hover:scale-110 active:scale-95' : ''}
                 `}
                 aria-label={label}
               >
@@ -84,8 +97,8 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
                 </span>
                 <span className={`
                   text-xs md:text-sm transition-colors duration-200 font-medium text-center max-w-[100px] leading-tight
-                  ${isMyVote ? 'text-purple-300' : 'text-gray-400'}
-                  ${!hasVoted ? 'group-hover:text-gray-200' : ''}
+                  ${isMyVote ? 'text-coral' : 'text-brown-muted'}
+                  ${!hasVoted ? 'group-hover:text-brown' : ''}
                 `}>
                   {isMyVote ? 'Your vibe' : label}
                 </span>
@@ -99,10 +112,10 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
           <div className="flex flex-col items-center gap-4 animate-[fadeIn_0.3s_ease-out]">
             <div className="flex items-center gap-3">
               <span className="text-4xl">{selectedOption?.emoji}</span>
-              <span className="text-gray-400 font-medium">{selectedOption?.label}</span>
+              <span className="text-brown-muted font-medium">{selectedOption?.label}</span>
               <button
                 onClick={() => setSelectedVibe(null)}
-                className="text-xs text-gray-500 hover:text-gray-300 transition-colors ml-2"
+                className="text-xs text-brown-muted hover:text-brown transition-colors ml-2"
               >
                 change
               </button>
@@ -116,7 +129,7 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
               placeholder="Tell us why..."
               maxLength={100}
               disabled={submitting}
-              className="w-full max-w-md bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all"
+              className="w-full max-w-md bg-cream border border-beige rounded-xl px-4 py-3 text-sm text-brown placeholder-brown-muted/50 focus:outline-none focus:ring-2 focus:ring-coral/50 focus:border-transparent transition-all"
               autoFocus
             />
 
@@ -124,14 +137,14 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="px-6 py-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white text-sm font-medium rounded-xl transition-colors"
+                className="px-6 py-2 bg-coral hover:bg-coral-hover disabled:opacity-50 text-white text-sm font-medium rounded-xl transition-colors"
               >
                 {submitting ? 'Submitting...' : 'Submit'}
               </button>
               <button
                 onClick={handleSkip}
                 disabled={submitting}
-                className="px-4 py-2 text-gray-500 hover:text-gray-300 text-sm transition-colors"
+                className="px-4 py-2 text-brown-muted hover:text-brown text-sm transition-colors"
               >
                 Skip
               </button>
@@ -140,7 +153,7 @@ export function MoodSelector({ onSelect, disabled, hasVoted, myVibe }) {
         )}
 
         {disabled && !hasVoted && !selectedVibe && (
-          <p className="text-center text-sm text-purple-400 mt-4 animate-pulse">
+          <p className="text-center text-sm text-coral mt-4 animate-pulse">
             Loading...
           </p>
         )}

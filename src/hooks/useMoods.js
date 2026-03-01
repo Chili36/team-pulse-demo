@@ -23,6 +23,7 @@ export function useMoods() {
       const { data, error } = await supabase
         .from('moods')
         .select('*')
+        .gte('created_at', new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString())
         .order('created_at', { ascending: false })
         .limit(200)
 
@@ -53,6 +54,7 @@ export function useMoods() {
       .from('moods')
       .select('vibe')
       .eq('session_id', sessionId)
+      .gte('created_at', new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString())
       .limit(1)
 
     if (data && data.length > 0) {
@@ -72,9 +74,10 @@ export function useMoods() {
       .from('moods')
       .insert(row)
 
-    // If the insert failed due to a missing 'comment' column (older schema),
-    // retry without the comment field so the vote is still recorded.
-    if (error && comment) {
+    // If the insert failed specifically because the 'comment' column doesn't
+    // exist (older schema), retry without it. Don't swallow unrelated errors.
+    const isColumnError = error && comment && /column|undefined|unknown/.test(error.message || '')
+    if (isColumnError) {
       const fallbackRow = { vibe, session_id: sessionId }
       const result = await supabase.from('moods').insert(fallbackRow)
       error = result.error

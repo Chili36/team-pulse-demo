@@ -1,29 +1,17 @@
 export function Header() {
   return (
-    <header className="text-center py-8 md:py-12">
-      {/* Glowing pulse ring behind the title */}
-      <div className="relative inline-block">
-        <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 blur-2xl animate-pulse" />
-        <h1 className="relative text-5xl md:text-7xl font-extrabold tracking-tight">
-          <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            Team Pulse
-          </span>
-          <span className="inline-block ml-3 animate-bounce" aria-hidden="true">
-            💓
-          </span>
-        </h1>
-      </div>
-
-      <p className="mt-4 text-lg md:text-xl text-gray-400 font-medium max-w-xl mx-auto leading-relaxed">
-        How does your team feel about{' '}
-        <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent font-semibold">
+    <header className="flex items-center justify-center gap-3 pt-4 pb-2">
+      <span className="text-2xl">🐾</span>
+      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-brown">
+        Cats <span className="text-coral">&</span> Agents
+      </h1>
+      <span className="text-lg" style={{ color: '#5a3e28' }}>
+        — how does your team feel about{' '}
+        <span className="font-bold px-1.5 py-0.5 rounded text-sm"
+          style={{ backgroundColor: '#ffe066', color: '#3d2e1f' }}>
           agentic coding
-        </span>
-        ?
-      </p>
-
-      {/* Decorative divider */}
-      <div className="mt-6 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 opacity-60" />
+        </span>?
+      </span>
     </header>
   )
 }
