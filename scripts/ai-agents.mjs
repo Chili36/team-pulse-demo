@@ -87,7 +87,9 @@ Respond with ONLY a JSON object, no markdown:
     }],
   });
 
-  const text = response.content[0].text.trim();
+  let text = response.content[0].text.trim();
+  // Haiku sometimes wraps JSON in markdown code fences — strip them
+  text = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/,'');
   const parsed = JSON.parse(text);
 
   if (!VALID_VIBES.includes(parsed.vibe)) {
