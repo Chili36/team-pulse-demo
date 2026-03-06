@@ -7,14 +7,12 @@ export function NewsTicker() {
     fetch('https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=10')
       .then((res) => res.json())
       .then((data) => {
-        setHeadlines(data.hits?.map((h) => h.title).filter(Boolean) || [])
+        setHeadlines(data.hits?.filter((h) => h.title).map((h) => ({ title: h.title, url: h.url || `https://news.ycombinator.com/item?id=${h.objectID}` })) || [])
       })
       .catch(() => {})
   }, [])
 
   if (headlines.length === 0) return null
-
-  const tickerText = headlines.join('  \u2022  ')
 
   return (
     <div className="overflow-hidden rounded-md py-1.5 px-3 text-xs font-medium"
@@ -27,7 +25,13 @@ export function NewsTicker() {
         <div className="overflow-hidden flex-1">
           <div className="animate-[ticker_30s_linear_infinite] whitespace-nowrap"
             style={{ color: '#f5edd6' }}>
-            {tickerText}
+            {headlines.map((h, i) => (
+              <span key={i}>
+                {i > 0 && '  \u2022  '}
+                <a href={h.url} target="_blank" rel="noopener noreferrer"
+                  className="hover:underline" style={{ color: '#ffe066' }}>{h.title}</a>
+              </span>
+            ))}
           </div>
         </div>
       </div>
